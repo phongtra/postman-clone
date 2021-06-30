@@ -5,16 +5,25 @@ document.getElementById('request-form').addEventListener('submit', (e) => {
 
   const params = {};
   for (let [keyInput, valueInput] of [
-    ...document.querySelectorAll('.key-value')
+    ...document.querySelectorAll('.key-value-params')
   ].map((node) => node.children)) {
     if (keyInput.value && valueInput.value)
       params[keyInput.value] = valueInput.value;
   }
 
+  const headers = {};
+  for (let [keyInput, valueInput] of [
+    ...document.querySelectorAll('.key-value-headers')
+  ].map((node) => node.children)) {
+    if (keyInput.value && valueInput.value)
+      headers[keyInput.value] = valueInput.value;
+  }
+
   axios({
     method,
     url,
-    params
+    params,
+    headers
   })
     .then((res) => {
       console.log(res);
@@ -57,11 +66,21 @@ document.getElementById('body-button').addEventListener('click', () => {
 });
 document.getElementById('params-add-button').addEventListener('click', () => {
   const newKeyValue = document
-    .querySelector('.key-value:last-child')
+    .querySelector('.key-value-params:last-child')
     .cloneNode(true);
   const childNodes = newKeyValue.childNodes;
   for (let node of childNodes) {
     node.value = '';
   }
   document.getElementById('params-container').appendChild(newKeyValue);
+});
+document.getElementById('headers-add-button').addEventListener('click', () => {
+  const newKeyValue = document
+    .querySelector('.key-value-headers:last-child')
+    .cloneNode(true);
+  const childNodes = newKeyValue.childNodes;
+  for (let node of childNodes) {
+    node.value = '';
+  }
+  document.getElementById('headers-container').appendChild(newKeyValue);
 });
