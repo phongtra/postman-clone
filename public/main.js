@@ -18,35 +18,41 @@ document.getElementById('request-form').addEventListener('submit', (e) => {
     if (keyInput.value && valueInput.value)
       headers[keyInput.value] = valueInput.value;
   }
-
-  axios({
-    method,
-    url,
-    params,
-    headers
-  })
-    .then((res) => {
-      console.log(res);
-      document.getElementById('response-status').textContent = res.status;
-      document.getElementById('response-content-type').textContent =
-        res.headers['content-type'];
-      document.getElementById('response-body').textContent = JSON.stringify(
-        res.data,
-        null,
-        2
-      );
+  try {
+    const data = JSON.parse(document.getElementById('json-body').value);
+    console.log(data);
+    axios({
+      method,
+      url,
+      params,
+      headers,
+      data
     })
-    .catch((error) => {
-      document.getElementById('response-status').textContent =
-        error.response.status;
-      document.getElementById('response-content-type').textContent =
-        error.response.headers['content-type'];
-      document.getElementById('response-body').textContent = JSON.stringify(
-        error.response.data,
-        null,
-        2
-      );
-    });
+      .then((res) => {
+        console.log(res);
+        document.getElementById('response-status').textContent = res.status;
+        document.getElementById('response-content-type').textContent =
+          res.headers['content-type'];
+        document.getElementById('response-body').textContent = JSON.stringify(
+          res.data,
+          null,
+          2
+        );
+      })
+      .catch((error) => {
+        document.getElementById('response-status').textContent =
+          error.response.status;
+        document.getElementById('response-content-type').textContent =
+          error.response.headers['content-type'];
+        document.getElementById('response-body').textContent = JSON.stringify(
+          error.response.data,
+          null,
+          2
+        );
+      });
+  } catch (e) {
+    alert('Invalid JSON');
+  }
 });
 
 document.getElementById('params-button').addEventListener('click', () => {
