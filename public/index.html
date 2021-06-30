@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>API fetcher</title>
+	<script defer src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script defer src="main.js"></script>
+</head>
+
+
+<body>
+	<h1>Welcome to API fetcher</h1>
+	<form id="request-form">
+		<select id="request-method">
+			<option value="get">GET</option>
+			<option value="post">POST</option>
+			<option value="put">PUT</option>
+			<option value="patch">PATCH</option>
+			<option value="delete">DELETE</option>
+		</select>
+		<input id="request-url" placeholder="https://example.com" />
+		<button>SEND</button>
+	</form>
+	<div>
+		<button id="params-button">Request Params</button>
+		<button id="headers-button">Headers</button>
+		<button id="body-button">Request Body</button>
+		<div id="params-form" style="display: none">
+
+			<div id="params-container">
+				<div class="key-value">
+					<input placeholder="KEY" />
+					<input placeholder="VALUE" />
+				</div>
+			</div>
+
+			<button id="params-add-button">ADD</button>
+
+			<div id="headers-form" style="display: none">
+				Headers
+			</div>
+			<div id="body-form" style="display: none">
+				body
+			</div>
+		</div>
+		<div id="response">
+			<p id="response-status"></p>
+			<p id="response-content-type"></p>
+			<pre id="response-body"></pre>
+		</div>
+</body>
+
+</html>
